@@ -12,7 +12,7 @@ private:
     Destination destination;
     int totalWeight;
     WagonList wagons;
-    Train *nextLocomotive; // Pointer to next train in the same track
+    Train *nextLocomotive; // Pointer to next train in the same track (singly linked list)
 
 public:
     Train();

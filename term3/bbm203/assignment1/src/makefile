@@ -2,8 +2,8 @@
 CXX = g++
 CXXFLAGS = -g -std=c++11 -Wall
 # Directories
-OBJ_DIR = obj
-BIN_DIR = bin
+OBJ_DIR = ../obj
+BIN_DIR = ../bin
 
 # Executable name
 TARGET = $(BIN_DIR)/HUTrain

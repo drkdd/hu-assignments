@@ -43,19 +43,48 @@ void TrainTrack::addTrain(Train *train)
     //   from the front until there is enough capacity.
     //      use: std::cout << "Auto-dispatch: departing " << departed->getName() << " to make room.\n";
 
+    if (totalWeight + train->totalWeight > AUTO_DISPATCH_LIMIT){
+         Train* departed = firstLocomotive;
+         firstLocomotive = firstLocomotive->nextLocomotive;
+         
+         totalWeight -= departed->totalWeight;
+         std::cout << "Auto-dispatch: departing " << departed->getName() << " to make room.\n";
+         
+         delete departed;
+         return addTrain(train);
+    }
+    
+    if (!firstLocomotive){
+         firstLocomotive = train;
+    } else if (!lastLocomotive){
+         lastLocomotive = train;
+         firstLocomotive->nextLocomotive = lastLocomotive;
+    } else {
+         lastLocomotive->nextLocomotive = train;
+         lastLocomotive = train;
+    }
+    totalWeight += train->totalWeight;
+    
 }
 
 Train *TrainTrack::departTrain()
 {
     // TODO: Remove the first train (front of the track) and return it.
     // use: std::cout << "Train " << removed->name << " departed from Track " << destinationToString(destination) << "." << std::endl;
+    
+    if (firstLocomotive){
+         Train* removed = firstLocomotive;
+         firstLocomotive = firstLocomotive->nextLocomotive;
+         std::cout << "Train " << removed->name << " departed from Track " << destinationToString(destination) << "." << std::endl;
+    }
+    
     return nullptr;
 }
 
 bool TrainTrack::isEmpty() const
 {
     // TODO: Return true if there are no trains on this track.
-    return false;
+    return !firstLocomotive;
 }
 
 
@@ -63,6 +92,11 @@ Train *TrainTrack::findTrain(const std::string &name) const
 {
     // TODO: Search for a train by name.
     // Return pointer to train if found, nullptr otherwise.
+    Train* curr = firstLocomotive;
+    while(curr){
+         if (curr->name == name) return curr;
+         curr = curr->nextLocomotive;
+    }
     return nullptr;
 }
 

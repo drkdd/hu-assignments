@@ -21,8 +21,8 @@ public:
 
     // Enable move constructor and move assignment
     // Moves ownership of wagons safely from one list to another.
-    WagonList(WagonList &&other) noexcept;
-    WagonList &operator=(WagonList &&other) noexcept;
+    WagonList(WagonList &&other) noexcept; //move constructor
+    WagonList &operator=(WagonList &&other) noexcept; //move assignment
 
     // Getters
     Wagon *getFront() { return front; }

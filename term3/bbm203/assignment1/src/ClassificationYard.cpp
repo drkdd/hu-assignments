@@ -1,4 +1,5 @@
 #include "ClassificationYard.h"
+#include "Enums.h"
 #include <iostream>
 
 ClassificationYard::ClassificationYard() {}
@@ -45,6 +46,13 @@ bool ClassificationYard::isEmpty() const
      *
      * The yard is empty if every blockTrain list for all destination-cargo pairs is empty.
      */
+     
+     for (int i=0; i<NUM_DESTINATIONS_INT; i++){
+          for (int j=0; j<NUM_CARGOTYPES_INT; j++){
+               if (!blockTrains[i][j].isEmpty()) return false;
+          }
+     }
+     
     return true;
 }
 
